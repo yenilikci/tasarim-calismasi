@@ -1,0 +1,13 @@
+@media screen and (max-width: 520px){
+    .header-title{
+        font-size: 24px !important;
+        color: #fff !important;
+    }
+}
+
+@media screen and  (min-width: 1200px){
+    .header-title{
+        font-size: 36px !important;
+        color: #fff !important;
+    }
+}
