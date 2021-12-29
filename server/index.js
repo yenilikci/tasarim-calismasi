@@ -2,10 +2,17 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const connectDB = require("./config/connection");
 
 const app = express();
 dotenv.config();
+
+connectDB();
 app.use(cors());
+app.use(helmet());
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
