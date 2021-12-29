@@ -1,8 +1,14 @@
-function App() {
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import './index.css'
+
+const App = () => {
   return (
-    <div>
-      <p>Robotic Arm Control</p>
-    </div>
+    <>
+        <Header/>
+        <main className="main"></main>
+        <Footer/>
+    </>
   );
 }
 

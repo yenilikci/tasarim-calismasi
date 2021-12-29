@@ -1,8 +1,4 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    font-size: 45px;
+.main{
+    min-height: 85vh;
+    background-color: #ddd;
 }
