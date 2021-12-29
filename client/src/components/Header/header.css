@@ -2,6 +2,14 @@
     .header-title{
         font-size: 24px !important;
         color: #fff !important;
+        text-decoration: none;
+    }
+    .my-custom-navbar{
+        justify-content: start;
+    }
+    .my-dropdown{
+        font-size: 20px;
+        zoom: 0.75;
     }
 }
 
@@ -9,5 +17,13 @@
     .header-title{
         font-size: 36px !important;
         color: #fff !important;
+        text-decoration: none;
+    }
+    .my-custom-navbar{
+        justify-content: space-between;
+    }
+    .my-dropdown{
+        font-size: 18px;
+        zoom: 0.9;
     }
 }

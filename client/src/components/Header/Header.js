@@ -1,17 +1,25 @@
-import {Navbar, Nav, Container, Button} from "react-bootstrap";
+import {Navbar, Nav, Container, NavDropdown} from "react-bootstrap";
 import './header.css';
+import {Link} from "react-router-dom";
 
 const Header = () => {
     return (
-        <Navbar>
-            <Container>
-                <Navbar.Brand className="header-title" href="/">Robotic Arm Control</Navbar.Brand>
-                <Nav className="d-flex justify-content-between">
-                    <Nav.Link href="/logout">
-                        <Button variant="dark" size="md">Logout</Button>
-                    </Nav.Link>
-                </Nav>
-            </Container>
+        <Navbar sticky="top"  expand="lg" className="d-flex my-custom-navbar">
+                <Navbar.Brand>
+                    <Link to="/" className="header-title">Robotic Arm Control</Link>
+                </Navbar.Brand>
+                {/*<Nav className="d-flex justify-content-between">*/}
+                {/*    <Nav.Link href="">*/}
+                {/*        <Button variant="primary border border-3 border-dark" size="md">About</Button>*/}
+                {/*    </Nav.Link>*/}
+                {/*</Nav>*/}
+            <NavDropdown title="Menu" className="my-dropdown">
+                <NavDropdown.Item
+                    href="/myCommands"
+                    className="my-dropdown-item">
+                    My Commands
+                </NavDropdown.Item>
+            </NavDropdown>
         </Navbar>
     )
 }

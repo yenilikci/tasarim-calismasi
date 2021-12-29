@@ -1,0 +1,44 @@
+.main {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background-image: url("../../assets/robotic-arm.png");
+    background-position: center;
+    background-size: cover;
+}
+.intro {
+    width: 100%;
+    text-align: center;
+}
+.title {
+    font-size: 95px;
+}
+.button-container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.landing-button {
+    width: 200px;
+    height: 55px;
+}
+
+@media only screen and (min-width: 1200px) {
+    .button-container {
+        padding: 0 200px;
+    }
+    .title {
+        padding: 0 100px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .title {
+        font-size: 60px;
+    }
+    .landing-button {
+        width: 150px;
+        height: 50px;
+    }
+}
