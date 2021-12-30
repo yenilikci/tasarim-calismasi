@@ -1,16 +1,24 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Button, Form} from "react-bootstrap";
 import axios from "axios";
 import "./login.css"
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 
-const Login = () => {
+const Login = ({history}) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    //auth check
+    useEffect(()=> {
+        const userInfo = localStorage.getItem("userInfo");
+        if(userInfo){
+            history.push("/myCommands")
+        }
+    }, [history])
 
     const submitHandler = async (e) => {
         e.preventDefault()

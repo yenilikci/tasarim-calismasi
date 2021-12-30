@@ -1,7 +1,17 @@
 import {Button, Container, Row} from "react-bootstrap";
 import './landing.css'
+import {useEffect} from "react";
 
-const Landing = () => {
+const Landing = ({history}) => {
+
+    //auth check
+    useEffect(()=> {
+        const userInfo = localStorage.getItem("userInfo");
+        if(userInfo){
+            history.push("/myCommands")
+        }
+    }, [history])
+
     return(
         <div className="main">
             <Container>
