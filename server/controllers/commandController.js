@@ -6,4 +6,4 @@ const getCommands = asyncHandler(async (req,res) => {
     res.json(commands);
 });
 
-module.exports = router;
+module.exports = {getCommands};
