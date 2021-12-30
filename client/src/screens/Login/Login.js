@@ -3,6 +3,7 @@ import {Button, Form} from "react-bootstrap";
 import axios from "axios";
 import "./login.css"
 import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
 
 const Login = () => {
 
@@ -28,6 +29,7 @@ const Login = () => {
             setLoading(false);
         } catch (err) {
             setError(err.response.data.message);
+            setLoading(false);
         }
     }
 
@@ -39,6 +41,7 @@ const Login = () => {
                     <div className="fadeIn first">
                         <h1 className="bg-primary py-2 text-center">Login</h1>
                     </div>
+                    {error && <Error variant="danger">{error}</Error>}
                     {loading && <Loading/>}
                     <Form className="p-2" onSubmit={submitHandler}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
