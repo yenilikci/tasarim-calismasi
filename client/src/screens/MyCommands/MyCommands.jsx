@@ -1,5 +1,5 @@
 import Main from '../Main/Main'
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {Accordion, AccordionCollapse, Badge, Button, Card, Table} from "react-bootstrap";
 import "./myCommands.css"
 import {useEffect, useState} from "react";
@@ -11,8 +11,12 @@ import Error from "../../components/Error/Error";
 const MyCommands = () => {
 
     const dispatch = useDispatch();
+
     const commandList = useSelector((state) => state.commandList);
-    const {loading, commands, error } = commandList;
+    const {loading, commands, error} = commandList;
+
+    const userLogin = useSelector(state => state.userLogin);
+    const {userInfo} = userLogin;
 
     const deleteHandler = (id) => {
         if (window.confirm("Are you sure?")) {
@@ -20,9 +24,13 @@ const MyCommands = () => {
         }
     }
 
+    const history = useHistory();   
+
     useEffect(() => {
         dispatch(listCommands());
-        console.log(commandList.commands)
+        if(!userInfo){
+            history.push("/");
+        }
     }, [dispatch])
 
     return (
@@ -35,73 +43,73 @@ const MyCommands = () => {
             {error && <Error variant="danger">{error}</Error>}
             {loading && <Loading/>}
             {commands?.map((command) => (
-                   <Accordion className="my-1" key={command._id}>
-                       <Accordion.Item eventKey="0">
-                           <Card className="bg-gradient border">
-                               <Card.Header className="d-flex align-items-center">
+                <Accordion className="my-1" key={command._id}>
+                    <Accordion.Item eventKey="0">
+                        <Card className="bg-gradient border">
+                            <Card.Header className="d-flex align-items-center">
                         <span className="title text-decoration-none px-0">
                             <Accordion.Header eventKey="0" as={Card.Text} className="shadow">
                                 <span className="text-dark">{command.title}</span>
                             </Accordion.Header>
                         </span>
-                                   <div>
-                                       <Button
-                                           href={`/editCommand/command._id`}
-                                           variant="warning"
-                                           className="mx-1">Edit</Button>
-                                       <Button
-                                           onClick={() => deleteHandler('command._id')}
-                                           variant="danger">
-                                           Delete
-                                       </Button>
-                                   </div>
-                               </Card.Header>
-                               <Accordion.Body>
-                                   <Card.Body>
-                                       <h4>
-                                           <Badge variant="dark">
-                                               Category: {command.category}
-                                           </Badge>
-                                       </h4>
-                                       <Table striped bordered hover>
-                                           <thead className="text-center">
-                                           <tr>
-                                               <th>Degress</th>
-                                               <th>Value</th>
-                                           </tr>
-                                           </thead>
-                                           <tbody className="text-center">
-                                           <tr>
-                                               <td>M1</td>
-                                               <td>{command.m1}</td>
-                                           </tr>
-                                           <tr>
-                                               <td>M2</td>
-                                               <td>{command.m2}</td>
-                                           </tr>
-                                           <tr>
-                                               <td>M3</td>
-                                               <td>{command.m3}</td>
-                                           </tr>
-                                           <tr>
-                                               <td>M4</td>
-                                               <td>{command.m4}</td>
-                                           </tr>
-                                           <tr>
-                                               <td>M5</td>
-                                               <td>{command.m5}</td>
-                                           </tr>
-                                           <tr>
-                                               <td>M6</td>
-                                               <td>{command.m6}</td>
-                                           </tr>
-                                           </tbody>
-                                       </Table>
-                                   </Card.Body>
-                               </Accordion.Body>
-                           </Card>
-                       </Accordion.Item>
-                   </Accordion>
+                                <div>
+                                    <Button
+                                        href={`/editCommand/command._id`}
+                                        variant="warning"
+                                        className="mx-1">Edit</Button>
+                                    <Button
+                                        onClick={() => deleteHandler('command._id')}
+                                        variant="danger">
+                                        Delete
+                                    </Button>
+                                </div>
+                            </Card.Header>
+                            <Accordion.Body>
+                                <Card.Body>
+                                    <h4>
+                                        <Badge variant="dark">
+                                            Category: {command.category}
+                                        </Badge>
+                                    </h4>
+                                    <Table striped bordered hover>
+                                        <thead className="text-center">
+                                        <tr>
+                                            <th>Degress</th>
+                                            <th>Value</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody className="text-center">
+                                        <tr>
+                                            <td>M1</td>
+                                            <td>{command.m1}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>M2</td>
+                                            <td>{command.m2}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>M3</td>
+                                            <td>{command.m3}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>M4</td>
+                                            <td>{command.m4}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>M5</td>
+                                            <td>{command.m5}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>M6</td>
+                                            <td>{command.m6}</td>
+                                        </tr>
+                                        </tbody>
+                                    </Table>
+                                </Card.Body>
+                            </Accordion.Body>
+                        </Card>
+                    </Accordion.Item>
+                </Accordion>
             ))}
         </Main>
     )
