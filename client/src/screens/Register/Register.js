@@ -2,8 +2,10 @@ import './register.css'
 import Error from "../../components/Error/Error";
 import Loading from "../../components/Loading/Loading";
 import {Button, Form} from "react-bootstrap";
-import {useState} from "react";
-import axios from "axios";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {register} from "../../actions/userActions";
+import {useHistory} from "react-router-dom";
 
 const Register = () => {
 
@@ -14,47 +16,37 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [message, setMessage] = useState(null);
     const [pictureMessage, setPictureMessage] = useState(null);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const userRegister = useSelector(state => state.userRegister);
+    const {loading, error, userInfo} = userRegister;
+
+    useEffect(() => {
+        if(userInfo) {
+            history.push('/myCommands')
+        }
+    }, [history, userInfo])
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        //password confirm
-        if(password !== confirmPassword) {
-            setMessage("Passwords Don't Match")
+        if (password !== confirmPassword) {
+            setMessage("Passwords Don't Match");
         } else {
-            setMessage(null);
-            try {
-                const config = {
-                    headers: {
-                        "Content-type": "application/json"
-                    }
-                }
-                setLoading(true)
-                const data = await axios.post("http://localhost:5000/api/v1/users/register",
-                    {name, picture, email, password},
-                    config
-                );
-
-                setLoading(false);
-                localStorage.setItem("userInfo",JSON.stringify(data.data));
-            } catch (err) {
-                setError(err.response.data.message);
-                setLoading(false);
-            }
+            dispatch(register(name, email, password, picture));
         }
     }
 
     const postDetails = (picture) => {
-        if(picture === "https://placeimg.com/640/480/any"){
+        if (picture === "https://placeimg.com/640/480/any") {
             return setPictureMessage("Please Select An Image")
         }
         setPictureMessage(null)
-        if(picture.type === "image/jpeg" || picture.type === "image/png"){
+        if (picture.type === "image/jpeg" || picture.type === "image/png") {
             const data = new FormData();
-            data.append('file',picture);
-            data.append('upload_preset','robotic-arm');
-            data.append('cloud_name','dgvt5guwq');
+            data.append('file', picture);
+            data.append('upload_preset', 'robotic-arm');
+            data.append('cloud_name', 'dgvt5guwq');
             fetch('https://api.cloudinary.com/v1_1/dgvt5guwq/image/upload', {
                 method: "post",
                 body: data
@@ -62,7 +54,7 @@ const Register = () => {
                 console.log(data)
                 setPicture(data.url.toString());
             })
-        }else {
+        } else {
             return setPictureMessage("Please Select An Image")
         }
     }
