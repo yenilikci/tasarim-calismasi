@@ -53,8 +53,26 @@ const updateCommand = asyncHandler(async (req, res) => {
         res.json(updateCommand);
     } else {
         res.status(404);
-        throw new Error("Note Not Found!");
+        throw new Error("Command Not Found!");
     }
 });
 
-module.exports = {getCommands, createCommand, getCommandById, updateCommand};
+const deleteCommand = asyncHandler(async (req, res) => {
+    const command = await Command.findById(req.params.id);
+
+    if(command.user.toString() !== req.user._id.toString()){
+        res.status(401);
+        throw new Error("You Can't Perform This Action!");
+    }
+
+    if(command) {
+        await command.remove();
+        res.json({message: "Command Removed!"});
+    } else {
+        res.status(404);
+        throw new Error("Command not found!");
+    }
+});
+
+
+module.exports = {getCommands, createCommand, getCommandById, updateCommand, deleteCommand};
