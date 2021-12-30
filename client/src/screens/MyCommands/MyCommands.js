@@ -2,14 +2,27 @@ import Main from '../Main/Main'
 import {Link} from "react-router-dom";
 import {Accordion, AccordionCollapse, Badge, Button, Card, Table} from "react-bootstrap";
 import "./myCommands.css"
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const MyCommands = () => {
+
+    const [commands, setCommands] = useState([]);
 
     const deleteHandler = (id) => {
         if (window.confirm("Are you sure?")) {
             //...
         }
     }
+
+    const fetchCommands = async () => {
+        const {data} = await axios.get('http://localhost:5000/api/v1/myCommands');
+        setCommands(data)
+    }
+
+    useEffect(() => {
+        fetchCommands()
+    }, [])
 
     return (
         <Main title="Welcome back..">

@@ -11,7 +11,7 @@
     text-align: center;
 }
 .title {
-    font-size: 95px;
+    font-size: 95px !important;
 }
 .button-container {
     margin-top: 50px;
