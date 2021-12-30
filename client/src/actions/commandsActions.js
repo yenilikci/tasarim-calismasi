@@ -12,6 +12,8 @@ export const listCommands = () => async (dispatch, getState) => {
             userLogin: { userInfo },
         } = getState();
 
+        console.log(userInfo.token)
+
         //authorization
         const config = {
             headers: {
