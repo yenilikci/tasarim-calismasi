@@ -1,21 +1,34 @@
 import {Navbar, Nav, Container, NavDropdown} from "react-bootstrap";
 import './header.css';
 import {Link, useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../../actions/userActions";
 
 const Header = () => {
 
     const history = useHistory();
 
+    const dispatch = useDispatch();
+
+    const userLogin = useSelector(state => state.userLogin);
+
+    const {userInfo} = userLogin;
+
+    const logoutHandler = () => {
+        dispatch(logout());
+        history.push('/');
+    }
+
     return (
         <Navbar expand="lg" className="d-flex my-custom-navbar">
-                <Navbar.Brand>
-                    <Link to="/" className="header-title">Robotic Arm Control</Link>
-                </Navbar.Brand>
-                {/*<Nav className="d-flex justify-content-between">*/}
-                {/*    <Nav.Link href="">*/}
-                {/*        <Button variant="primary border border-3 border-dark" size="md">About</Button>*/}
-                {/*    </Nav.Link>*/}
-                {/*</Nav>*/}
+            <Navbar.Brand>
+                <Link to="/" className="header-title">Robotic Arm Control</Link>
+            </Navbar.Brand>
+            {/*<Nav className="d-flex justify-content-between">*/}
+            {/*    <Nav.Link href="">*/}
+            {/*        <Button variant="primary border border-3 border-dark" size="md">About</Button>*/}
+            {/*    </Nav.Link>*/}
+            {/*</Nav>*/}
             <NavDropdown title="Menu" className="my-dropdown">
                 <NavDropdown.Item
                     href="/myCommands"
@@ -23,10 +36,7 @@ const Header = () => {
                     My Commands
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                    onClick={() => {
-                        localStorage.removeItem("userInfo")
-                        history.push("/")
-                    }}
+                    onClick={logoutHandler}
                 >
                     Logout
                 </NavDropdown.Item>
