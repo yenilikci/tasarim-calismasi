@@ -24,7 +24,7 @@ const MyCommands = () => {
         }
     }
 
-    const history = useHistory();   
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(listCommands());
@@ -34,7 +34,7 @@ const MyCommands = () => {
     }, [dispatch])
 
     return (
-        <Main title="Welcome back..">
+        <Main title={`Welcome Back ${userInfo.name}`}>
             <Link to="createCommand">
                 <Button className="mb-2" size="lg">
                     Create New Command
@@ -67,7 +67,7 @@ const MyCommands = () => {
                             <Accordion.Body>
                                 <Card.Body>
                                     <h4>
-                                        <Badge variant="dark">
+                                        <Badge variant="dark" className="p-2">
                                             Category: {command.category}
                                         </Badge>
                                     </h4>
@@ -105,6 +105,12 @@ const MyCommands = () => {
                                         </tr>
                                         </tbody>
                                     </Table>
+                                    <blockquote className="bg-dark btn disabled">
+                                        Created on {" "}
+                                        <cite>
+                                            {command.createdAt.substring(0, 10)}
+                                        </cite>
+                                    </blockquote>
                                 </Card.Body>
                             </Accordion.Body>
                         </Card>
