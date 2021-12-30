@@ -2,6 +2,7 @@ import {useState} from "react";
 import {Button, Form} from "react-bootstrap";
 import axios from "axios";
 import "./login.css"
+import Loading from "../../components/Loading/Loading";
 
 const Login = () => {
 
@@ -38,7 +39,7 @@ const Login = () => {
                     <div className="fadeIn first">
                         <h1 className="bg-primary py-2 text-center">Login</h1>
                     </div>
-
+                    {loading && <Loading/>}
                     <Form className="p-2" onSubmit={submitHandler}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
