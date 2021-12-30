@@ -5,7 +5,7 @@ export const commandListReducer = (state = { commands: [] }, action) => {
         case COMMANDS_LIST_REQUEST:
             return { loading: true };
         case COMMANDS_LIST_SUCCESS:
-            return { loading: false, notes: action.payload };
+            return { loading: false, commands: action.payload };
         case COMMANDS_LIST_FAIL:
             return { loading: false, error: action.payload };
 
