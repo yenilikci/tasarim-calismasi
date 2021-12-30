@@ -19,4 +19,14 @@ const createCommand = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = {getCommands, createCommand};
+const getCommandById = asyncHandler(async (req, res) => {
+   const command = await Command.findById(req.params.id);
+
+   if(command){
+       res.json(command);
+   } else {
+       res.status(404).json({message: "Command Not Found!"});
+   }
+});
+
+module.exports = {getCommands, createCommand, getCommandById};
