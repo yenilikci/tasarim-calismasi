@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 const Header = () => {
     return (
-        <Navbar sticky="top"  expand="lg" className="d-flex my-custom-navbar">
+        <Navbar expand="lg" className="d-flex my-custom-navbar">
                 <Navbar.Brand>
                     <Link to="/" className="header-title">Robotic Arm Control</Link>
                 </Navbar.Brand>
