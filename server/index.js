@@ -20,13 +20,11 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use('/api/v1/users', userRoutes);
-app.use(notFound);
-app.use(errorHandler);
-
-
-app.get('/', (req, res) => {
+app.get('/api/v1', (req, res) => {
     res.json({status: 'success'})
 });
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000
 
