@@ -4,13 +4,13 @@ import axios from "axios";
 import "./login.css"
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
+import {useDispatch, useSelector} from "react-redux";
+import {login} from "../../actions/userActions";
 
 const Login = ({history}) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     //auth check
     useEffect(()=> {
@@ -20,25 +20,19 @@ const Login = ({history}) => {
         }
     }, [history])
 
+    const dispatch = useDispatch();
+    const userLogin = useSelector((state) => state.userLogin);
+    const {loading, error, userInfo} = userLogin;
+
+    useEffect(()=> {
+        if(userInfo) {
+            history.push("/myCommands");
+        }
+    }, [history, userInfo]);
+
     const submitHandler = async (e) => {
         e.preventDefault()
-        try {
-            const config = {
-                headers: {
-                    "Content-type": "application/json"
-                }
-            }
-            setLoading(true);
-            const data = await axios.post('http://localhost:5000/api/v1/users/login', {
-                email, password
-            }, config);
-            console.log(data)
-            localStorage.setItem("userInfo", JSON.stringify(data.data));
-            setLoading(false);
-        } catch (err) {
-            setError(err.response.data.message);
-            setLoading(false);
-        }
+        dispatch(login(email, password));
     }
 
     return (
