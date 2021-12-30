@@ -1,8 +1,11 @@
 import {Navbar, Nav, Container, NavDropdown} from "react-bootstrap";
 import './header.css';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const Header = () => {
+
+    const history = useHistory();
+
     return (
         <Navbar expand="lg" className="d-flex my-custom-navbar">
                 <Navbar.Brand>
@@ -18,6 +21,14 @@ const Header = () => {
                     href="/myCommands"
                     className="my-dropdown-item">
                     My Commands
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                    onClick={() => {
+                        localStorage.removeItem("userInfo")
+                        history.push("/")
+                    }}
+                >
+                    Logout
                 </NavDropdown.Item>
             </NavDropdown>
         </Navbar>
