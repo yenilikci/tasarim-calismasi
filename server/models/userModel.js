@@ -26,9 +26,7 @@ const userSchema = mongoose.Schema({
         required: true,
         default: "https://placeimg.com/640/480/any"
     }
-}, {
-    timestamp: true
-});
+}, {timestamps: true});
 
 //pre save exec
 userSchema.pre('save', async function (next) {

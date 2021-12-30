@@ -8,6 +8,8 @@ const connectDB = require("./config/connection");
 
 //routes
 const userRoutes = require("./routes/userRoutes")
+const commandRoutes = require("./routes/commandRoutes")
+
 const {notFound, errorHandler} = require("./middlewares/errorMiddleware");
 
 const app = express();
@@ -20,6 +22,7 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/commands', commandRoutes);
 app.get('/api/v1', (req, res) => {
     res.json({status: 'success'})
 });
