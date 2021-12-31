@@ -1,9 +1,16 @@
 import {
     COMMANDS_CREATE_FAIL,
-    COMMANDS_CREATE_REQUEST, COMMANDS_CREATE_SUCCESS,
+    COMMANDS_CREATE_REQUEST,
+    COMMANDS_CREATE_SUCCESS,
+    COMMANDS_DELETE_FAIL,
+    COMMANDS_DELETE_REQUEST,
+    COMMANDS_DELETE_SUCCESS,
     COMMANDS_LIST_FAIL,
     COMMANDS_LIST_REQUEST,
-    COMMANDS_LIST_SUCCESS, COMMANDS_UPDATE_FAIL, COMMANDS_UPDATE_REQUEST, COMMANDS_UPDATE_SUCCESS
+    COMMANDS_LIST_SUCCESS,
+    COMMANDS_UPDATE_FAIL,
+    COMMANDS_UPDATE_REQUEST,
+    COMMANDS_UPDATE_SUCCESS
 } from "../constants/commandsConstants";
 
 export const commandListReducer = (state = { commands: [] }, action) => {
@@ -41,6 +48,20 @@ export const commandUpdateReducer = (state = {}, action) => {
         case COMMANDS_UPDATE_SUCCESS:
             return { loading: false, success: true };
         case COMMANDS_UPDATE_FAIL:
+            return { loading: false, error: action.payload, success: false };
+
+        default:
+            return state;
+    }
+};
+
+export const commandDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case COMMANDS_DELETE_REQUEST:
+            return { loading: true };
+        case COMMANDS_DELETE_SUCCESS:
+            return { loading: false, success: true };
+        case COMMANDS_DELETE_FAIL:
             return { loading: false, error: action.payload, success: false };
 
         default:
