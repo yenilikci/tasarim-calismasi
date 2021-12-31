@@ -25,6 +25,9 @@ const MyCommands = () => {
     const commandCreate = useSelector(state => state.commandCreate);
     const {success:successCreate} = commandCreate;
 
+    const commandUpdate = useSelector((state) => state.commandUpdate);
+    const {success:successUpdate} = commandUpdate;
+
     const deleteHandler = (id) => {
         if (window.confirm("Are you sure?")) {
             //...
@@ -38,7 +41,7 @@ const MyCommands = () => {
         if(!userInfo){
             history.push("/");
         }
-    }, [dispatch, successCreate, history, userInfo])
+    }, [dispatch, successCreate, history, userInfo,     successUpdate])
 
     return (
         <Main title={`Welcome Back ${userInfo.name} !`}>
