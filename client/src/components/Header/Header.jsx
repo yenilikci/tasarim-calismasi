@@ -1,11 +1,11 @@
-import {Navbar, Nav, Container, NavDropdown} from "react-bootstrap";
+import {Navbar, Nav, Container, NavDropdown, Form, FormControl, Button} from "react-bootstrap";
 import './header.css';
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../actions/userActions";
 import {GiRobotGrab} from "react-icons/gi";
 
-const Header = () => {
+const Header = ({setSearch}) => {
 
     const history = useHistory();
 
@@ -25,7 +25,20 @@ const Header = () => {
             <Navbar.Brand>
                 <Link to="/" className="header-title d-flex justify-content-center align-items-center">
                     <GiRobotGrab className="mx-1"/>
-                    Robotic Arm Control</Link>
+                    Robotic Arm Control
+                </Link>
+            </Navbar.Brand>
+            <Navbar.Brand>
+                <Form className="d-flex">
+                    <FormControl
+                        type="search"
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <Button variant="primary">Search</Button>
+                </Form>
             </Navbar.Brand>
             {/*<Nav className="d-flex justify-content-between">*/}
             {/*    <Nav.Link href="">*/}

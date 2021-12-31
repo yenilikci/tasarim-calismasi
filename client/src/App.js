@@ -9,19 +9,24 @@ import EditCommand from "./screens/EditCommand/EditCommand";
 import './index.css'
 import {BrowserRouter, Route} from "react-router-dom";
 import {Container} from "react-bootstrap";
+import {useState} from "react";
 
 const App = () => {
+
+    const [search, setSearch] = useState("");
+    console.log(search)
+
     return (
         <BrowserRouter>
             <Container>
-                <Header/>
+                <Header setSearch={setSearch}/>
                 <main>
                     <Route path="/" component={Landing} exact/>
                     <Route path="/login" component={Login}/>
                     <Route path="/register" component={Register}/>
                     <Route path="/createCommand" component={CreateCommand}/>
                     <Route path="/editCommand/:id" component={EditCommand}/>
-                    <Route path="/myCommands" component={() => <MyCommands/>}/>
+                    <Route path="/myCommands" component={() => <MyCommands search={search}/>}/>
                 </main>
                 <Footer/>
             </Container>
