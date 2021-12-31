@@ -2,7 +2,7 @@ import Main from '../Main/Main'
 import {Link, useHistory} from "react-router-dom";
 import {Accordion, AccordionCollapse, Badge, Button, Card, Table} from "react-bootstrap";
 import "./myCommands.css"
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteCommandAction, listCommands} from "../../actions/commandsActions";
 import Loading from "../../components/Loading/Loading";
@@ -12,7 +12,7 @@ import {FiDelete, FiEdit} from 'react-icons/fi';
 import {BiCategory} from 'react-icons/bi';
 import { BsFillCalendarDateFill } from "react-icons/bs";
 
-const MyCommands = () => {
+const MyCommands = ({search}) => {
 
     const dispatch = useDispatch();
 
@@ -69,7 +69,7 @@ const MyCommands = () => {
             {error && <Error variant="danger">{error}</Error>}
             {loading && <Loading/>}
 
-            {commands?.reverse().map((command) => (
+            {commands?.reverse().filter((filteredNote) => filteredNote.title.toLowerCase().includes(search.toLowerCase())).map((command) => (
                 <Accordion className="mt-2 shadow border-top border-5 border-dark rounded" key={command._id}>
                     <Accordion.Item eventKey={command._id}>
                         <Card className="bg-secondary border">

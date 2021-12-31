@@ -4,6 +4,7 @@ import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../actions/userActions";
 import {GiRobotGrab} from "react-icons/gi";
+import {useEffect} from "react";
 
 const Header = ({setSearch}) => {
 
@@ -20,6 +21,8 @@ const Header = ({setSearch}) => {
         history.push('/');
     }
 
+    useEffect(() => {}, [userInfo]);
+
     return (
         <Navbar expand="lg" className="d-flex my-custom-navbar">
             <Navbar.Brand>
@@ -32,12 +35,11 @@ const Header = ({setSearch}) => {
                 <Form className="d-flex">
                     <FormControl
                         type="search"
-                        placeholder="Search"
-                        className="me-2"
+                        placeholder="Search..."
+                        className="border border-5"
                         aria-label="Search"
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                    <Button variant="primary">Search</Button>
                 </Form>
             </Navbar.Brand>
             {/*<Nav className="d-flex justify-content-between">*/}
