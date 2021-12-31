@@ -22,6 +22,9 @@ const MyCommands = () => {
     const userLogin = useSelector(state => state.userLogin);
     const {userInfo} = userLogin;
 
+    const commandCreate = useSelector(state => state.commandCreate);
+    const {success:successCreate} = commandCreate;
+
     const deleteHandler = (id) => {
         if (window.confirm("Are you sure?")) {
             //...
@@ -35,7 +38,7 @@ const MyCommands = () => {
         if(!userInfo){
             history.push("/");
         }
-    }, [dispatch])
+    }, [dispatch, successCreate, history, userInfo])
 
     return (
         <Main title={`Welcome Back ${userInfo.name} !`}>
@@ -46,7 +49,7 @@ const MyCommands = () => {
             </Link>
             {error && <Error variant="danger">{error}</Error>}
             {loading && <Loading/>}
-            {commands?.map((command) => (
+            {commands?.reverse().map((command) => (
                 <Accordion className="mt-2 shadow border-top border-5 border-dark rounded" key={command._id}>
                     <Accordion.Item eventKey={command._id}>
                         <Card className="bg-secondary border">
