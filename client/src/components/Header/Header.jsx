@@ -3,6 +3,7 @@ import './header.css';
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../actions/userActions";
+import {GiRobotGrab} from "react-icons/gi";
 
 const Header = () => {
 
@@ -22,7 +23,9 @@ const Header = () => {
     return (
         <Navbar expand="lg" className="d-flex my-custom-navbar">
             <Navbar.Brand>
-                <Link to="/" className="header-title">Robotic Arm Control</Link>
+                <Link to="/" className="header-title d-flex justify-content-center align-items-center">
+                    <GiRobotGrab className="mx-1"/>
+                    Robotic Arm Control</Link>
             </Navbar.Brand>
             {/*<Nav className="d-flex justify-content-between">*/}
             {/*    <Nav.Link href="">*/}
@@ -33,7 +36,7 @@ const Header = () => {
                 <NavDropdown.Item
                     href="/myCommands"
                     className="my-dropdown-item">
-                    My Commands
+                   My Commands
                 </NavDropdown.Item>
                 <NavDropdown.Item
                     onClick={logoutHandler}

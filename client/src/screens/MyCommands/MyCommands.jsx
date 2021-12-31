@@ -7,6 +7,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {listCommands} from "../../actions/commandsActions";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
+import { FaPlusCircle } from 'react-icons/fa';
+import {FiDelete, FiEdit} from 'react-icons/fi';
+import {BiCategory} from 'react-icons/bi';
+import { BsFillCalendarDateFill } from "react-icons/bs";
 
 const MyCommands = () => {
 
@@ -34,51 +38,47 @@ const MyCommands = () => {
     }, [dispatch])
 
     return (
-        <Main title={`Welcome Back ${userInfo.name}`}>
+        <Main title={`Welcome Back ${userInfo.name} !`}>
             <Link to="createCommand">
-                <Button className="mb-2" size="lg">
-                    Create New Command
+                <Button className="mb-2 d-flex align-items-center" size="lg">
+                    <FaPlusCircle className="mx-1"/>Create New Command
                 </Button>
             </Link>
             {error && <Error variant="danger">{error}</Error>}
             {loading && <Loading/>}
             {commands?.map((command) => (
-                <Accordion className="my-1" key={command._id}>
-                    <Accordion.Item eventKey="0">
-                        <Card className="bg-gradient border">
+                <Accordion className="mt-2 shadow border-top border-5 border-dark rounded" key={command._id}>
+                    <Accordion.Item eventKey={command._id}>
+                        <Card className="bg-secondary border">
                             <Card.Header className="d-flex align-items-center">
                         <span className="title text-decoration-none px-0">
-                            <Accordion.Header eventKey="0" as={Card.Text} className="shadow">
+                            <Accordion.Header  as={Card.Text} className="shadow">
                                 <span className="text-dark">{command.title}</span>
                             </Accordion.Header>
                         </span>
                                 <div>
                                     <Button
                                         href={`/editCommand/command._id`}
-                                        variant="warning"
-                                        className="mx-1">Edit</Button>
+                                        variant="success"
+                                        className="mx-1 shadow"><FiEdit/> Edit</Button>
                                     <Button
                                         onClick={() => deleteHandler('command._id')}
-                                        variant="danger">
-                                        Delete
+                                        variant="danger"
+                                        className="shadow">
+                                        <FiDelete/> Delete
                                     </Button>
                                 </div>
                             </Card.Header>
                             <Accordion.Body>
                                 <Card.Body>
-                                    <h4>
-                                        <Badge variant="dark" className="p-2">
-                                            Category: {command.category}
-                                        </Badge>
-                                    </h4>
-                                    <Table striped bordered hover>
+                                    <Table striped bordered hover className="border-top border-5 border-dark">
                                         <thead className="text-center">
-                                        <tr>
+                                        <tr className="bg-info">
                                             <th>Degress</th>
                                             <th>Value</th>
                                         </tr>
                                         </thead>
-                                        <tbody className="text-center">
+                                        <tbody className="text-center shadow">
                                         <tr>
                                             <td>M1</td>
                                             <td>{command.m1}</td>
@@ -105,8 +105,14 @@ const MyCommands = () => {
                                         </tr>
                                         </tbody>
                                     </Table>
-                                    <blockquote className="bg-dark btn disabled">
-                                        Created on {" "}
+                                    <blockquote className="bg-danger btn disabled">
+                                        <BiCategory/> Category: {" "}
+                                        <cite>
+                                           {command.category}
+                                        </cite>
+                                    </blockquote>
+                                    <blockquote className="bg-dark btn disabled mx-2">
+                                       <BsFillCalendarDateFill/>  Created on: {" "}
                                         <cite>
                                             {command.createdAt.substring(0, 10)}
                                         </cite>

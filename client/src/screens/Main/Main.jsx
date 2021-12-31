@@ -10,7 +10,8 @@ const Main = ({ children, title }) => {
                             title &&
                             (
                                 <>
-                                    <h3 className="heading">{title}</h3>
+                                    <hr/>
+                                    <h3 className="heading d-inline bg-gradient p-2 shadow rounded">{title}</h3>
                                     <hr/>
                                 </>
                             )
