@@ -61,11 +61,11 @@ const MyCommands = () => {
                         </span>
                                 <div>
                                     <Button
-                                        href={`/editCommand/command._id`}
+                                        href={`/editCommand/${command._id}`}
                                         variant="success"
                                         className="mx-1 shadow"><FiEdit/> Edit</Button>
                                     <Button
-                                        onClick={() => deleteHandler('command._id')}
+                                        onClick={() => deleteHandler(command._id)}
                                         variant="danger"
                                         className="shadow">
                                         <FiDelete/> Delete

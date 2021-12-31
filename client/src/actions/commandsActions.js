@@ -4,7 +4,7 @@ import {
     COMMANDS_CREATE_REQUEST, COMMANDS_CREATE_SUCCESS,
     COMMANDS_LIST_FAIL,
     COMMANDS_LIST_REQUEST,
-    COMMANDS_LIST_SUCCESS
+    COMMANDS_LIST_SUCCESS, COMMANDS_UPDATE_FAIL, COMMANDS_UPDATE_REQUEST, COMMANDS_UPDATE_SUCCESS
 } from "../constants/commandsConstants";
 
 export const listCommands = () => async (dispatch, getState) => {
@@ -82,6 +82,49 @@ export const createCommandAction = (title, m1, m2, m3, m4, m5, m6, category) => 
                 : error.message;
         dispatch({
             type: COMMANDS_CREATE_FAIL,
+            payload: message,
+        });
+    }
+};
+
+export const updateCommandAction = (id, title, m1, m2, m3, m4, m5, m6, category) => async (
+    dispatch,
+    getState
+) => {
+    try {
+        dispatch({
+            type: COMMANDS_UPDATE_REQUEST,
+        });
+
+        const {
+            userLogin: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        //put request
+        const { data } = await axios.put(
+            `http://localhost:5000/api/v1/commands/${id}`,
+            { title, m1, m2, m3, m4, m5, m6, category },
+            config
+        );
+
+        dispatch({
+            type: COMMANDS_UPDATE_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message;
+        dispatch({
+            type: COMMANDS_UPDATE_FAIL  ,
             payload: message,
         });
     }
