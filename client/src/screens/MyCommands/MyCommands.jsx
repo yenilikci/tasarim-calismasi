@@ -4,7 +4,7 @@ import {Accordion, AccordionCollapse, Badge, Button, Card, Table} from "react-bo
 import "./myCommands.css"
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {listCommands} from "../../actions/commandsActions";
+import {deleteCommandAction, listCommands} from "../../actions/commandsActions";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import { FaPlusCircle } from 'react-icons/fa';
@@ -28,9 +28,12 @@ const MyCommands = () => {
     const commandUpdate = useSelector((state) => state.commandUpdate);
     const {success:successUpdate} = commandUpdate;
 
+    const commandDelete = useSelector(state => state.commandDelete);
+    const {loading:loadingDelete, error:errorDelete, success:successDelete } = commandDelete;
+
     const deleteHandler = (id) => {
         if (window.confirm("Are you sure?")) {
-            //...
+            dispatch(deleteCommandAction(id))
         }
     }
 
@@ -41,7 +44,14 @@ const MyCommands = () => {
         if(!userInfo){
             history.push("/");
         }
-    }, [dispatch, successCreate, history, userInfo,     successUpdate])
+    }, [
+        dispatch,
+        successCreate,
+        history,
+        userInfo,
+        successUpdate,
+        successDelete
+    ]);
 
     return (
         <Main title={`Welcome Back ${userInfo.name} !`}>
@@ -50,8 +60,15 @@ const MyCommands = () => {
                     <FaPlusCircle className="mx-1"/>Create New Command
                 </Button>
             </Link>
+
+            {/*error and loading delete*/}
+            {errorDelete && <Error variant="danger">{errorDelete}</Error>}
+            {loadingDelete && <Loading/>}
+
+            {/*error and loading standart*/}
             {error && <Error variant="danger">{error}</Error>}
             {loading && <Loading/>}
+
             {commands?.reverse().map((command) => (
                 <Accordion className="mt-2 shadow border-top border-5 border-dark rounded" key={command._id}>
                     <Accordion.Item eventKey={command._id}>
